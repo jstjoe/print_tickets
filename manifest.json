@@ -1,0 +1,13 @@
+{
+  "name": "Print History",
+  "author": {
+    "name": "Skip Moore",
+    "email": "services@zendesk.com",
+    "url": "http://www.zendesk.com"
+  },
+  "defaultLocale": "en",
+  "private": true,
+  "location": "user_sidebar",
+  "version": "1.0.2",
+  "frameworkVersion": "1.0"
+}

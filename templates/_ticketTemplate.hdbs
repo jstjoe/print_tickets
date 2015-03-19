@@ -1,0 +1,3 @@
+<div class="wrapper">
+{{#each obj}}<a href="data:application/octet-stream;charset=utf-8,{{{ticket}}}" download="ticket_{{id}}.html" class="btn download"><i class="icon-download"></i> Download Ticket #{{id}}</a>{{/each}}
+</div>
