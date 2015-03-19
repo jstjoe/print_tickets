@@ -1,3 +1,5 @@
+/*global Blob*/
+/*global URL*/
 (function() {
   return {
     ticketIds: [],
@@ -58,18 +60,21 @@
     },
     concatPrint: function(data, ticket_id){
       data = data.replace('/images/zendesk-lotus-flower.png', 'http://ubercab.zendesk.com/images/zendesk-lotus-flower.png');
-      this.dataLoad.push({
-        "id": ticket_id,
-        "ticket": encodeURIComponent(data)
-      });
+      this.dataLoad.push(data);
+
       if(this.ticketIds.length === this.dataLoad.length){
-        this.displayTickets();
+        this.createURL();
       }
     },
-    displayTickets: function(){
-      var test = encodeURIComponent(this.dataLoad[0]);
+    createURL: function() {
+      var fileParts = ['<a id="a"><b id="b">hey!</b></a>', '<a id="a"><b id="b">hello!</b></a>', '<a id="a"><b id="b">what?!</b></a>'];
+      var blob = new Blob(this.dataLoad, {type : 'text/html'});
+      var url = URL.createObjectURL( blob );
+      this.displayTickets(url);
+    },
+    displayTickets: function(url){
       this.switchTo('_ticketTemplate',{
-        obj: this.dataLoad
+        url: url
       });
     }
   };
