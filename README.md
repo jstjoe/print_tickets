@@ -11,4 +11,4 @@ The Print Ticket History app will show all of your existing tickets by requester
 Please submit bug reports to api@zendesk.com. Pull requests are welcome.
 
 ### Screenshot(s):
-http://g.recordit.co/Z57uUvP3nG.gif
+![](http://g.recordit.co/Z57uUvP3nG.gif)
