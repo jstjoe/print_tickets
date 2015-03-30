@@ -3,10 +3,6 @@
 
 (function() {
 
-  var checkbox1;
-  var checkbox2;
-  var checkbox3;
-
   return {
     events: {
       'app.created':'init',
@@ -37,114 +33,48 @@
 
     init: function(){
       this.switchTo('generate');
+      this.validateCheckbox();
       this.tickets = [];
       this.ticketIds = [];
       this.userName = this.currentUser().name();
     },
-
     validateCheckbox: function(){
-        if (this.$('#filterCheckbox1').is(':checked')){
-         console.log(filterCheckbox1.value);
-         this.checkbox1 = true;
-        } else if (this.$('#filterCheckbox2').is(':checked')){
-         console.log(filterCheckbox2.value);
-         this.checkbox2 = true;
-        } else if (this.$('#filterCheckbox3').is(':checked')) {
-         console.log(filterCheckbox3.value);
-         this.checkbox3 = true;
-        }
-      },
-
-    startDL: function() {
-      var searchQuery = encodeURIComponent( 'commenter:' + this.user().id() );
-      var searchQueryRequester = encodeURIComponent( 'requester:' + this.user().id() );
-      var searchQueryCC = encodeURIComponent( 'cc:' + this.user().id() );
-      var initURL = '/api/v2/search.json?page=1&query=';
-      var commenterSearch = '/api/v2/search.json?page=1&query=' + searchQuery;
-      var requesterSearch = '/api/v2/search.json?page=1&query=' + searchQueryRequester;
-      var ccSearch = '/api/v2/search.json?page=1&query=' + searchQueryCC;
-
-      if (this.checkbox1 === true && this.checkbox2 === true && this.checkbox3 === true){
-        console.log('all are checked.');
-        this.switchTo('loading');
-        this.ajax('getTickets', commenterSearch);
-      } 
-      
-      if (this.checkbox1 === true){
-        console.log('only 1');
-        this.switchTo('loading');
-        this.ajax('getTickets', commenterSearch);
-      }
-
-      if (this.checkbox2 === true){
-        console.log('only 2');
-        this.switchTo('loading');
-        this.ajax('getTickets', requesterSearch);
-      }
-
-      if (this.checkbox3 === true){
-        console.log('only 3');
-        this.switchTo('loading');
-        this.ajax('getTickets', ccSearch);
-      }
-
-      if (this.checkbox3 === false && this.checkbox1 === true && this.checkbox2 === true){
-        console.log('1 & 2 are checked, 3 is not.');
-        this.switchTo('loading');
-        this.ajax('getTickets', requesterSearch);
-      } 
-
-      if (this.checkbox2 === false && this.checkbox1 === true && this.checkbox3 === true){
-        console.log('1 & 3 are checked, 2 is not.');
-        this.switchTo('loading');
-        this.ajax('getTickets', ccSearch);
-      }
-
-      if (this.checkbox1 === false && this.checkbox2 === true && this.checkbox3 === true){
-        console.log('2 & 3 are checked, 1 is not.');
-        this.switchTo('loading');
-        this.ajax('getTickets', ccSearch);        
+      if(!this.$('#filterCheckbox1').is(':checked')&&
+          !this.$('#filterCheckbox2').is(':checked')&&
+          !this.$('#filterCheckbox3').is(':checked'))
+      {
+        this.$('.displayList').prop('disabled', true);
+      } else {
+        this.$('.displayList').prop('disabled', false);
       }
     },
-//         this.ajax('getTickets', query); 
-//         } else if (this.$('#filterCheckbox2').is(':checked')){
-//         console.log('2nd one is clicked');
-//         this.switchTo('loading');
-//         this.ajax('getTickets', requesterSearch); 
-//         } else if (this.$('#filterCheckbox3').is(':checked')) {
-//         console.log('3rd one is clicked'); 
-//         this.switchTo('loading');
-//         this.ajax('getTickets', ccSearch);
-//         } else {confirm('You made 0 selections, showing you everything.');
-//       this.ajax('getTickets', initURL);
-//       this.switchTo('loading');
-//        }
-// },
-
-
-//       if (this.$('#filterCheckbox1').is(':checked')){
-//         console.log('1st one is clicked');
-//       var searchQuery = encodeURIComponent( 'commenter:' + this.user().id() );
-//         initURL = '/api/v2/search.json?page=1&query=' + searchQuery;
-//         this.ajax('getTickets', initURL);
-//         this.switchTo('loading');
-//       } else if (this.$('#filterCheckbox2').is(':checked')){
-//         console.log('2nd one is clicked');
-//         var searchQueryRequester = encodeURIComponent( 'requester:' + this.user().id() );
-//         initURLRequester = '/api/v2/search.json?page=1&query=' + searchQueryRequester;
-//       this.ajax('getTickets', initURLRequester);
-//       this.switchTo('loading');
-//       } else if (this.$('#filterCheckbox3').is(':checked')) {
-//         console.log('3rd one is clicked');
-//         var searchQueryCC = encodeURIComponent( 'cc:' + this.user().id() );
-//         initURLCC = '/api/v2/search.json?page=1&query=' + searchQueryCC;
-//       this.ajax('getTickets', initURLCC);
-//       this.switchTo('loading');
-//       } else {confirm('You made 0 selections, showing you everything.');
-//       this.ajax('getTickets', initURL);
-//       this.switchTo('loading');
-//        }
-// },
+    startDL: function() {
+      if(!this.$('#filterCheckbox1').is(':checked')&&
+          !this.$('#filterCheckbox2').is(':checked')&&
+          !this.$('#filterCheckbox3').is(':checked'))
+      {
+        services.notify('You must choose at least one search option to get any tickets.');
+        return;
+      }
+      if (this.$('#filterCheckbox1').is(':checked')){
+        var searchQuery = encodeURIComponent( 'commenter:' + this.user().id() ),
+        initURL = '/api/v2/search.json?page=1&query=' + searchQuery;
+        this.ajax('getTickets', initURL);
+        this.switchTo('loading');
+      }
+      if (this.$('#filterCheckbox2').is(':checked')){
+        var searchQueryRequester = encodeURIComponent( 'requester:' + this.user().id() ),
+        initURLRequester = '/api/v2/search.json?page=1&query=' + searchQueryRequester;
+        this.ajax('getTickets', initURLRequester);
+        this.switchTo('loading');
+      }
+      if (this.$('#filterCheckbox3').is(':checked')) {
+        var searchQueryCC = encodeURIComponent( 'cc:' + this.user().id() ),
+        initURLCC = '/api/v2/search.json?page=1&query=' + searchQueryCC;
+        this.ajax('getTickets', initURLCC);
+        this.switchTo('loading');
+      }
+    },
 
     results: function(data){
       var results = data.results,
