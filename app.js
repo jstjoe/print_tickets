@@ -49,13 +49,6 @@
       }
     },
     startDL: function() {
-      if(!this.$('#filterCheckbox1').is(':checked')&&
-          !this.$('#filterCheckbox2').is(':checked')&&
-          !this.$('#filterCheckbox3').is(':checked'))
-      {
-        services.notify('You must choose at least one search option to get any tickets.');
-        return;
-      }
       if (this.$('#filterCheckbox1').is(':checked')){
         var searchQuery = encodeURIComponent( 'commenter:' + this.user().id() ),
         initURL = '/api/v2/search.json?page=1&query=' + searchQuery;
@@ -97,13 +90,14 @@
     },
 
     concatPrint: function(data, ticket_id){
-      data = data.replace('/images/zendesk-lotus-flower.png', 'http://ubercab.zendesk.com/images/zendesk-lotus-flower.png');
+      var subdomain = this.currentAccount().subdomain();
+      var imagePath = helpers.fmt('http://%@.zendesk.com/images/zendesk-lotus-flower.png', subdomain);
+      data = data.replace('/images/zendesk-lotus-flower.png', imagePath);
       this.tickets.push(data);
       if(this.ticketIds.length === this.tickets.length){
         this.createURL();
       }
     },
-
     createURL: function() {
       var blob = new Blob(this.tickets, {type : 'text/html'});
       var url = URL.createObjectURL( blob );
@@ -112,7 +106,6 @@
         userName: this.userName
       });
     }
-
   };
 
 }());

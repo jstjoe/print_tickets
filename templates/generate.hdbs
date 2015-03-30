@@ -1,18 +1,26 @@
-  </div>
-    <div class="checkbox1" 
+<form class="form-horizontal">
+  <div class="checkbox1 control-group">
     <label>
-      <input id='filterCheckbox1' type="checkbox" value='commented'/> Commented On
+      <div class="control">
+        <input id='filterCheckbox1' type="checkbox" value='commented'/> Commented On
+      </div>
     </label>
   </div>
-  <div class="checkbox2" id ="myDiv">
+  <div class="checkbox2 control-group">
     <label>
-      <input id='filterCheckbox2' type="checkbox" value='requester'/> By Requester
+      <div class="control">
+        <input id='filterCheckbox2' type="checkbox" value='requester'/> Requested
+      </div>
     </label>
   </div>
-    <div class="checkbox3" id ="myDiv">
+  <div class="checkbox3 control-group">
     <label>
-      <input id='filterCheckbox3' type="checkbox" value='cc'/> CC'd On
+      <div class="control">
+        <input id='filterCheckbox3' type="checkbox" value='cc'/> Collaborated On
+      </div>
     </label>
+  </div>
+</form>
 
 <div class="wrapper">
 <button class='displayList ember-view btn'>Get Ticket History</button>
