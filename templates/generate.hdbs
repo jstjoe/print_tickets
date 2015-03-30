@@ -1,3 +1,19 @@
+  </div>
+    <div class="checkbox1" 
+    <label>
+      <input id='filterCheckbox1' type="checkbox" value='commented'/> Commented On
+    </label>
+  </div>
+  <div class="checkbox2" id ="myDiv">
+    <label>
+      <input id='filterCheckbox2' type="checkbox" value='requester'/> By Requester
+    </label>
+  </div>
+    <div class="checkbox3" id ="myDiv">
+    <label>
+      <input id='filterCheckbox3' type="checkbox" value='cc'/> CC'd On
+    </label>
+
 <div class="wrapper">
 <button class='displayList ember-view btn'>Get Ticket History</button>
 </div>

@@ -1,6 +1,11 @@
 .wrapper{
   text-align: center;
 }
+
+.checkbox{
+  text-align: center;
+}
+
 .download {
   margin-bottom: 10px;
 }
